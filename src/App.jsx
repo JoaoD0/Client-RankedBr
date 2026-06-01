@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { connectWebSocket, sendWsEvent, disconnectWebSocket } from './services/websocket'
 
-const SUPABASE_URL = 'https://mkibzenbhusvlluswtwa.supabase.co'
-const SUPABASE_ANON_KEY = 'sb_publishable_ZdlFwBx2RqtcEBUJE8FlUA_NyIe3o3t'
+const SUPABASE_URL = 'https://galcbklbtdnbodgeptad.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhbGNia2xidGRuYm9kZ2VwdGFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5MDYwNDUsImV4cCI6MjA4NjQ4MjA0NX0.mahzFnkFvHv1q6pqrI2Y9SuCbKKIgzBXrfduiaKsYi4'
 
 async function loginWithSupabase(email, password) {
   const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
@@ -130,7 +130,7 @@ function DashboardScreen({ user, token }) {
         const lobbyCode = prepResult.lobbyCode
         addLog(`✅ Lobby pronto! Código: ${lobbyCode || 'N/A'}`)
 
-        sendWsEvent('lobby_ready', { match_id, lobby_code: lobbyCode, map })
+        sendWsEvent('lobby_code', { match_id, code: lobbyCode, map })
 
         setMatchStatus({ state: 'waiting_opponent', map, match_id, lobbyCode })
         addLog(`⏳ Aguardando oponente entrar no lobby...`)
