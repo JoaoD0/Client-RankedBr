@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const SUPABASE_URL = 'https://galcbklbtdnbodgeptad.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhbGNia2xidGRuYm9kZ2VwdGFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5MDYwNDUsImV4cCI6MjA4NjQ4MjA0NX0.mahzFnkFvHv1q6pqrI2Y9SuCbKKIgzBXrfduiaKsYi4'
+const SUPABASE_URL = 'https://mkibzenbhusvlluswtwa.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1raWJ6ZW5iaHVzdmxsdXN3dHdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMzE3MDksImV4cCI6MjA5NTkwNzcwOX0.70XE4MhhP23vgd6GfVwWU78hpF4m9uXdsV_Avlq3CeA'
 
 let supabase = null
 let lobbyChannel = null
@@ -45,7 +45,9 @@ function subscribeToMatch(matchId, onEvent) {
 
 export function sendWsEvent(event, data) {
   const ch = matchChannel || lobbyChannel
-  ch?.send({ type: 'broadcast', event, payload: data })
+  if (!ch) return
+  ch.send({ type: 'broadcast', event, payload: data })
+    .catch(err => console.error('[WS] sendWsEvent error:', err))
 }
 
 export function disconnectWebSocket() {
